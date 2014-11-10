@@ -28,7 +28,7 @@ namespace AotCompatlyzer
 			}
 		}
 		
-		public void OnFile(string fileName, string outFileName, bool keepOriginal = false, bool swap = true)
+		public void OnFile(string fileName, string outFileName, bool keepOriginal = true, bool swap = false)
 		{
 			Console.WriteLine(" ----- " + fileName + " -----");
 			if(ProcessorDispatcher.Verbosity >= 4)

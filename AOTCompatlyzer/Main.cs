@@ -5,7 +5,6 @@ using System;
 using System.Linq;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
-using System.Linq;
 using System.IO;
 using System.Collections.Generic;
 
@@ -16,7 +15,7 @@ namespace AotCompatlyzer
 		public static int Verbosity = (int)Verbosities.Warning;
 
 		public static bool TraceMode = false;
-		public static bool PretendMode = true;
+		public static bool PretendMode = false;
 	}
 
 	class MainClass
@@ -24,7 +23,12 @@ namespace AotCompatlyzer
 
 		public static void Main(string[] args)
 		{
-			Console.WriteLine(" ================================ ");
+			Console.WriteLine(" ==============++++++++++++++================== ");
+
+            foreach (string arg in args)
+            {
+                Console.WriteLine(" ==============++++++++arg++++++================== "+ arg);
+            }
 			
 			ProcessorDispatcher d = new ProcessorDispatcher();
 
@@ -36,9 +40,10 @@ namespace AotCompatlyzer
 
 			List<string> fileList = new List<string>();
 
-
-			if(args.Length > 0)
+			if(args.Length > 3)
 			{
+                Console.WriteLine(" ==============++++++args.Length++++++++================== " + args.Length);
+
 				IEnumerable<string> fileListArgs = args;
 				if(args[0].StartsWith ("-"))
 				{
@@ -65,6 +70,7 @@ namespace AotCompatlyzer
 			}
 			else
 			{
+                Console.WriteLine("GetCurrentDirectory: ==================================" + Directory.GetCurrentDirectory());
 				foreach(var fileName in
 				        Directory.GetFiles(Directory.GetCurrentDirectory(), "*.dll")
 				        .Concat(Directory.GetFiles(Directory.GetCurrentDirectory(), "*.exe"))) 
@@ -74,6 +80,8 @@ namespace AotCompatlyzer
 #else
 #endif
 					fileList.Add(fileName);
+
+                    Console.WriteLine(" ==============+++fileName+++++++==================  "  + fileName);
 				}
 			}
 
